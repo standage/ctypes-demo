@@ -1,0 +1,6 @@
+libmy.so
+libmy.dylib
+obj/
+mytest
+*.pyc
+*.dSYM
