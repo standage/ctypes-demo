@@ -16,5 +16,10 @@ instead of the pointers they encapsulate.
 To see a crude solution, go to the *fix* directory and type `make`. You should
 then be able to go back to the *mylibpy* directory on  Mac and run `./test.py`
 successfully. Type `git diff` to see what changes were made. You're essentially
-required to sidestep the most useful features of `ctypes` and provide your own
-additional error/type checking in order to get it to work on Mac OS X.
+required to sidestep the most useful features of `ctypes` in order to get it to
+work on Mac OS X.
+
+## Update: 16 Dec 2014
+
+Dereferencing the value returned by C library with `c_void_p()` seems to restore
+this behavior on OS X. See latest commit.

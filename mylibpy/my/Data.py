@@ -2,12 +2,13 @@
 #     This is free and unencumbered software released into the public domain.
 from my.Gizmo import Gizmo
 from my.load import mylib
+from ctypes import c_void_p, c_char_p
 
 class Data:
 
   def __init__(self, datap, desc, meta, gizmo=None):
     self.d = mylib.my_data_create(datap, desc, meta, gizmo)
-    self._as_parameter_ = self.d
+    self._as_parameter_ = c_void_p(self.d)
 
   def __del__(self):
     mylib.my_data_delete(self.d)
@@ -23,7 +24,6 @@ class Data:
   from_param = classmethod(from_param)
 
   def register(cls, mylib):
-    from ctypes import c_void_p, c_char_p
     mylib.my_data_create.restype = c_void_p
     mylib.my_data_create.argtypes = [c_void_p, c_char_p, c_char_p, Gizmo]
     mylib.my_data_delete.restype = None

@@ -1,12 +1,13 @@
 # (c) 2014 Daniel Standage <daniel.standage@gmail.com>
 #     This is free and unencumbered software released into the public domain.
 from load import mylib
+from ctypes import c_void_p, c_uint, c_char_p
 
 class Gizmo:
 
   def __init__(self, count, label, model=None):
     self.g = mylib.my_gizmo_create(count, label, model)
-    self._as_parameter_ = self.g
+    self._as_parameter_ = c_void_p(self.g)
 
   def __del__(self):
     mylib.my_gizmo_delete(self.g)
@@ -22,7 +23,6 @@ class Gizmo:
   from_param = classmethod(from_param)
 
   def register(cls, mylib):
-    from ctypes import c_void_p, c_uint, c_char_p
     mylib.my_gizmo_create.restype = c_void_p
     mylib.my_gizmo_create.argtypes = [c_uint, c_char_p, c_void_p]
     mylib.my_gizmo_delete.restype = None
